@@ -3,16 +3,22 @@
 Files for each step:
 
 * [1aki.pdb](https://files.rcsb.org/download/1AKI.pdb)
-* [minim.mdp](http://www.mdtutorials.com/gmx/lysozyme/Files/minim.mdp)
+
+* 1AKI_*
+
 * [ions.mdp](http://www.mdtutorials.com/gmx/lysozyme/Files/ions.mdp)
 
 * [nvt.mdp](http://www.mdtutorials.com/gmx/lysozyme/Files/nvt.mdp)
 
-For equilibarion step 
+Energy Minimization Step
+
+* [minim.mdp](http://www.mdtutorials.com/gmx/lysozyme/Files/minim.mdp)
+
+Equilibarion step 
 
 * [npt.mdp](http://www.mdtutorials.com/gmx/lysozyme/Files/npt.mdp)
 
-For production molecular dynamics simulation step 
+Production molecular dynamics simulation step 
 
 * [md.mdp](http://www.mdtutorials.com/gmx/lysozyme/Files/npt.mdp)
 
