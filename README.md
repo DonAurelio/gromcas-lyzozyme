@@ -68,4 +68,6 @@ gmx mdrun -deffnm md_0_1 -nb gpu
 
 # References
 
+[Gromacs mdrun performance usage and mpi commands](http://manual.gromacs.org/documentation/2018.2/user-guide/mdrun-performance.html)
 [Gromacs Performance Measuring and Considerations](http://www.gromacs.org/Documentation/Performance_checklist)
+[Gromacs Startdard Benchmarks](https://www.mpibpc.mpg.de/grubmueller/bench)

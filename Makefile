@@ -1,9 +1,7 @@
-# Computers on which gromcas will run on a distributed fashion
-HOSTS=hostfile
-
 # MPI main process PID
 MPI_PROCESS=$$(ps -fu mpiuser | grep mdrun | awk 'NR==1{printf "%s", $$2}' )
 
+MPI_FLAGS= --mca btl_tcp_if_include eno1  -np 16 --hostfile hostfile
 
 # ENERGY MINIMIZATION
 em_compile:
@@ -13,7 +11,7 @@ em_seq: clean_backups em_clean em_compile
 	gmx mdrun -v -deffnm em
 
 em_mpi: clean_backups em_clean em_compile
-	mpirun --hostfile ${HOSTS} gmx_mpi mdrun -deffnm em
+	mpirun ${MPI_FLAGS} gmx_mpi mdrun -deffnm em
 
 em_clean:
 	rm -f em.* mdout.mdp
@@ -26,7 +24,7 @@ nvt_seq: clean_backups nvt_clean nvt_compile
 	gmx mdrun -v -deffnm nvt
 
 nvt_mpi: clean_backups nvt_clean nvt_compile
-	mpirun --hostfile ${HOSTS} mdrun_mpi -deffnm nvt
+	mpirun ${MPI_FLAGS} mdrun_mpi -deffnm nvt
 
 nvt_clean:
 	rm -f nvt.cpt nvt.edr nvt.gro nvt.log nvt.tpr nvt.trr nvt_prev.cpt mdout.mdp
@@ -39,10 +37,10 @@ npt_seq: clean_backups npt_clean npt_compile
 	gmx mdrun -deffnm npt
 
 npt_mpi: clean_backups npt_clean npt_compile
-	mpirun --hostfile ${HOSTS} mdrun_mpi -deffnm npt
+	mpirun ${MPI_FLAGS} mdrun_mpi -deffnm npt
 
 npt_clean:
-	rm -f npt.cpt npt.edr npt.gro npt.log npt.mdp npt.tpr npt.trr npt_prev.cpt mdout.mdp
+	rm -f npt.cpt npt.edr npt.gro npt.log npt.tpr npt.trr npt_prev.cpt
 
 # PRODUTION
 
@@ -52,7 +50,7 @@ prod_compile:
 
 # Run gromcas distributing the work among computers, but only use CPUs
 prod_mpi: clean_logs prod_compile
-	mpirun --hostfile ${HOSTS} mdrun_mpi -ntmpi 16 -v -deffnm md_0_1 > prod_out.log 2> prod_err.log &
+	mpirun ${MPI_FLAGS} mdrun_mpi -ntmpi 16 -v -deffnm md_0_1 > prod_out.log 2> prod_err.log &
 
 prod_seq: clean_logs prod_compile
 	gmx mdrun -deffnm md_0_1  > prod_out.log 2> prod_err.log &
