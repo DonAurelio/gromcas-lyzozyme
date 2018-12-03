@@ -26,10 +26,10 @@ nvt_seq: clean_backups nvt_clean nvt_compile
 	gmx mdrun -v -deffnm nvt
 
 nvt_mpi: clean_backups nvt_clean nvt_compile
-	mpirun --hostfile ${HOSTS} mdrun_mpi -deffnm nvt
+	mpirun --mca btl_tcp_if_include eno1  -np 16 --hostfile ${HOSTS} mdrun_mpi -v -deffnm nvt
 
 nvt_clean:
-	rm -f nvt.cpt nvt.edr nvt.gro nvt.log nvt.tpr nvt.trr nvt_prev.cpt mdout.mdp
+	rm -f nvt.cpt nvt.edr nvt.gro nvt.log nvt.tpr nvt.trr nvt_prev.cpt
 
 # EQUILIBRATION NPT
 npt_compile: 
@@ -42,7 +42,7 @@ npt_mpi: clean_backups npt_clean npt_compile
 	mpirun --hostfile ${HOSTS} mdrun_mpi -deffnm npt
 
 npt_clean:
-	rm -f npt.cpt npt.edr npt.gro npt.log npt.mdp npt.tpr npt.trr npt_prev.cpt mdout.mdp
+	rm -f npt.cpt npt.edr npt.gro npt.log npt.tpr npt.trr npt_prev.cpt
 
 # PRODUTION
 
